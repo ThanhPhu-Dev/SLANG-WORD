@@ -8,6 +8,8 @@ public class Main {
 
     public static Scanner scanner = new Scanner(System.in);
 
+    public static List<String> history = new ArrayList<>();
+
     public static void menu () throws IOException {
         HashMap<String, String> dictionary = Util.readerFile();
         Set<String> set = dictionary.keySet();
@@ -22,6 +24,7 @@ public class Main {
                 if(key != null || !key.isEmpty()){
                     result = dictionary.get(key);
                 }
+                history.add(keyword);
                 System.out.println(String.format("ket qua tim kiem tu khoa '%s' la: %s", keyword, result));
                 break;
             case 2:
@@ -37,6 +40,10 @@ public class Main {
                     System.out.println("Ket qua time kiem voi tu khoa " + keyword);
                     resultList.forEach(item -> System.out.print(item));
                 }
+                break;
+            case 3:
+                System.out.println("Danh sach cac slang word da tim kiem.");
+                history.forEach(item -> System.out.println(item));
                 break;
         }
     }
