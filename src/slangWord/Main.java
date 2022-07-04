@@ -13,7 +13,7 @@ public class Main {
     public static void menu () throws IOException {
         HashMap<String, String> dictionary = Util.readerFile();
         Set<String> set = dictionary.keySet();
-        int choose = 2;
+        int choose = 4;
         String result = "";
         String keyword;
         switch (choose){
@@ -44,6 +44,16 @@ public class Main {
             case 3:
                 System.out.println("Danh sach cac slang word da tim kiem.");
                 history.forEach(item -> System.out.println(item));
+                break;
+            case 4:
+                System.out.println("Chuc nang add 1 slang words moi.");
+                System.out.print("Nhap slang word: ");
+                String slangWord = scanner.next();
+                System.out.format("Nhap dinh nghia cho %s: ", slangWord);
+                String definition = scanner.next();
+                dictionary.put(slangWord, definition);
+                Util.writeToFile(slangWord+"`"+definition);
+                System.out.println("Luu Thanh Cong");
                 break;
         }
     }

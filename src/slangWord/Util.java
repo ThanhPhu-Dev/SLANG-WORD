@@ -1,8 +1,6 @@
 package slangWord;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 
 public class Util {
@@ -38,6 +36,24 @@ public class Util {
             return null;
         } finally {
             fr.close();
+        }
+    }
+
+    public static void writeToFile(String content){
+        try{
+            File file = new File(System.getProperty("user.dir") + "\\slang.txt");
+            if(!file.exists()){
+                file.createNewFile();
+            }
+
+            FileWriter fw = new FileWriter(file,true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(content);
+            bw.write("\n");
+            bw.close();
+            fw.close();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }
