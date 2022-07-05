@@ -39,14 +39,14 @@ public class Util {
         }
     }
 
-    public static void writeToFile(String content){
+    public static void writeToFile(String content, boolean isAppend){
         try{
             File file = new File(System.getProperty("user.dir") + "\\slang.txt");
             if(!file.exists()){
                 file.createNewFile();
             }
 
-            FileWriter fw = new FileWriter(file,true);
+            FileWriter fw = new FileWriter(file, isAppend);
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(content);
             bw.write("\n");
@@ -56,4 +56,5 @@ public class Util {
             e.printStackTrace();
         }
     }
+
 }

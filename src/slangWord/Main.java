@@ -13,14 +13,14 @@ public class Main {
     public static void menu () throws IOException {
         HashMap<String, String> dictionary = Util.readerFile();
         Set<String> set = dictionary.keySet();
-        int choose = 4;
+        int choose = 1;
         String result = "";
         String keyword;
         switch (choose){
             case 1:
                 System.out.print("Nhap tu muon tim kiem: ");
                 keyword = scanner.next();
-                String key = set.stream().filter(m -> m.toLowerCase().equals(keyword.toLowerCase())).findFirst().get();
+                String key = set.stream().parallel().filter(m -> (m.toLowerCase()).equals(keyword.toLowerCase())).findFirst().get();
                 if(key != null || !key.isEmpty()){
                     result = dictionary.get(key);
                 }
@@ -52,8 +52,14 @@ public class Main {
                 System.out.format("Nhap dinh nghia cho %s: ", slangWord);
                 String definition = scanner.next();
                 dictionary.put(slangWord, definition);
-                Util.writeToFile(slangWord+"`"+definition);
+                Util.writeToFile(slangWord+"`"+definition, true);
                 System.out.println("Luu Thanh Cong");
+                break;
+            case 8:
+                Random generator = new Random();
+                Object[] keyArray = history.toArray();
+                Object randomKey = keyArray[generator.nextInt(keyArray.length)];
+                System.out.println(String.format("Random slang word trong ngay hom nay %s : $s", randomKey, dictionary.get(randomKey)));
                 break;
         }
     }
