@@ -116,45 +116,17 @@ public class Util {
         bw.write("\n");
     }
 
-    public static void createFileCopy(String fileNameSource, String fileNameTarget, boolean isReplace) {
-        File file = new File(System.getProperty("user.dir") + "\\" + fileNameTarget);
-        try {
-            if(!isReplace){
-                if(!file.exists()){
-                    file.createNewFile();
-                    Path source = Paths.get(System.getProperty("user.dir") + "\\" + fileNameSource);
-                    Path target = Paths.get(System.getProperty("user.dir") + "\\" + fileNameTarget);
-
-                }
-            }
-            if (!file.exists()) {
-                file.createNewFile();
-                Path source = Paths.get(file.getPath());
-                Path target = Paths.get(System.getProperty("user.dir") + "\\" + "slangCopy.txt");
-                Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
-            }else {
-                if (isReplace) {
-                    Path source = Paths.get(file.getPath());
-                    Path target = Paths.get(System.getProperty("user.dir") + "\\" + "slangCopy.txt");
-                    Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public static HashMap<String, String> init(String fileSourceName, String fileTargetName){
         File file = new File(System.getProperty("user.dir") + "\\" + fileTargetName);
         HashMap<String, String> dictionary = null;
         try{
-
             if(!file.exists()){
                 file.createNewFile();
                 dictionary = readerFile(fileSourceName);
-                writeMoreLineToFile(dictionary, file.getName() + ".txt");
+                writeMoreLineToFile(dictionary, file.getName());
             }else{
-                dictionary = readerFile(file.getName() + ".txt");
+                dictionary = readerFile(file.getName());
             }
         } catch (IOException e){
             e.printStackTrace();

@@ -11,7 +11,7 @@ public class Main {
 
     public static void menu (HashMap<String, String> dictionary) throws IOException {
 
-        int choose = 6;
+        int choose = 7;
 
         String keyword;
         switch (choose){
@@ -82,11 +82,13 @@ public class Main {
                     break;
                 }
                 dictionary.remove(keyword);
-                Util.writeMoreLineToFile(dictionary, false);
+                Util.writeMoreLineToFile(dictionary, "slangCopy.txt");
                 System.out.println("Xoa thanh cong.");
                 break;
             case 7:
-                Util.createFileCopy("slangCopy.txt", true);
+                dictionary = Util.readerFile("slang.txt");
+                Util.writeMoreLineToFile(dictionary, "slangCopy.txt");
+                System.out.println("Reset file thanh cong.");
                 break;
             case 8:
                 Random generator = new Random();
