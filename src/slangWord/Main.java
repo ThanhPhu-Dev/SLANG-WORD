@@ -11,8 +11,8 @@ public class Main {
 
     public static void menu (HashMap<String, String> dictionary) throws IOException {
 
-        int choose = 7;
-
+        int choose = 9;
+        Random generator = new Random();
         String keyword;
         switch (choose){
             case 1:
@@ -91,10 +91,39 @@ public class Main {
                 System.out.println("Reset file thanh cong.");
                 break;
             case 8:
-                Random generator = new Random();
                 Object[] keyArray = history.toArray();
                 Object randomKey = keyArray[generator.nextInt(keyArray.length)];
                 System.out.println(String.format("Random slang word trong ngay hom nay %s : $s", randomKey, dictionary.get(randomKey)));
+                break;
+            case 9:
+                Object[] questions = dictionary.keySet().toArray();
+                Object[] answers = dictionary.values().toArray();
+                String question = (String) questions[generator.nextInt(questions.length)];
+                String answer = dictionary.get(question);
+                int index = generator.nextInt(4);
+
+                System.out.format("Chon denfinition cua slang word: %s.\n", question);
+                for (int i=0;i<4;i++){
+                    if(i == index) {
+                        System.out.print(index +". "+ answer +"\t");
+                        continue;
+                    }
+                    String answerWrong = (String) answers[generator.nextInt(answers.length)];
+                    if(answerWrong.equals(answer)){
+                        answerWrong = (String) answers[generator.nextInt(answers.length)];
+                        i-=1;
+                        continue;
+                    }else{
+                        System.out.print(i +". "+ answerWrong +"\t");
+                    }
+                }
+                System.out.print("\nDap an ban chon la: ");
+                String yourAnswer = scanner.next();
+                if(yourAnswer.equals(String.valueOf(index))){
+                    System.out.println("Chuc mung, ban da tra loi chinh xac.");
+                }else{
+                    System.out.println("ban da tra loi sai, dap an la " + answer);
+                }
                 break;
         }
     }
