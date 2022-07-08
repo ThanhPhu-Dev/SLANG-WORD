@@ -130,4 +130,22 @@ public class Util {
         return dictionary;
     }
 
+    public static String readLineConsole(){
+        BufferedReader br = null;
+        try{
+            br = new BufferedReader(new InputStreamReader(System.in));
+            return br.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return  null;
+    }
 }

@@ -1,12 +1,13 @@
 package slangWord;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
 
-    public static Scanner scanner = new Scanner(System.in);
     public static List<String> history = new ArrayList<>();
 
     public static int showMenu(){
@@ -23,7 +24,7 @@ public class Main {
         System.out.println("10. Chuc nang do vui, chon dap an dung voi definition.");
         System.out.println("0. Thoat.");
         System.out.print("chon chuc nang: ");
-        return Integer.valueOf(scanner.next()).intValue();
+        return Integer.valueOf(Util.readLineConsole()).intValue();
     }
 
     public static void menu (HashMap<String, String> dictionary) throws IOException {
@@ -44,7 +45,7 @@ public class Main {
                     break;
                 case 1:
                     System.out.print("Nhap tu muon tim kiem: ");
-                    keyword = scanner.next();
+                    keyword = Util.readLineConsole();
                     String key = Util.getKey(dictionary.keySet(), keyword);
                     if (key != null) {
                         history.add(keyword);
@@ -56,7 +57,7 @@ public class Main {
                     break;
                 case 2:
                     System.out.print("Nhap tu muon tim kiem: ");
-                    String k = scanner.next();
+                    String k = Util.readLineConsole();
                     Set<String> resultList = dictionary.entrySet().stream().parallel()
                             .filter(entry -> entry.getValue().contains(k))
                             .map(Map.Entry::getKey)
@@ -77,39 +78,40 @@ public class Main {
                     }
                     break;
                 case 4:
+                    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
                     System.out.println("Chuc nang add 1 slang words moi.");
                     System.out.print("Nhap slang word: ");
-                    String slangWord = scanner.next();
+                    String slangWord = br.readLine();
                     System.out.format("Nhap dinh nghia cho %s: ", slangWord);
-                    String definition = scanner.next();
+                    String definition = br.readLine();
                     dictionary.put(slangWord, definition);
                     Util.writeOneLineToFile(slangWord + "`" + definition);
                     System.out.println("Luu Thanh Cong");
                     break;
                 case 5:
                     System.out.print("Nhap slang word muốn chỉnh sua: ");
-                    keyword = Util.getKey(dictionary.keySet(), scanner.next());
+                    keyword = Util.getKey(dictionary.keySet(), Util.readLineConsole());
 
                     if (keyword == null) {
                         System.out.println("slang word khong tim thay.");
                         break;
                     }
                     System.out.format("Nhap noi dung chinh sua dinh nghia cho %s: ", keyword);
-                    String value = scanner.next();
+                    String value = Util.readLineConsole();
                     dictionary.put(keyword, value);
                     Util.writeMoreLineToFile(dictionary, "slangCopy.txt");
                     System.out.println("Chinh sua thanh cong");
                     break;
                 case 6:
                     System.out.print("Nhap slang word muon xoa: ");
-                    keyword = Util.getKey(dictionary.keySet(), scanner.next());
+                    keyword = Util.getKey(dictionary.keySet(), Util.readLineConsole());
 
                     if (keyword == null) {
                         System.out.println("slang word khong tim thay.");
                         break;
                     }
                     System.out.print("Nhap Y de xac nhan xoa. Luu y thao tac nay khong hoan tac: ");
-                    if (!scanner.next().toLowerCase().equals("y")) {
+                    if (!Util.readLineConsole().toLowerCase().equals("y")) {
                         break;
                     }
                     dictionary.remove(keyword);
@@ -145,7 +147,7 @@ public class Main {
                         System.out.print(i + ". " + answerWrong + "\t");
                     }
                     System.out.print("\nDap an ban chon la: ");
-                    yourAnswer = scanner.next();
+                    yourAnswer = Util.readLineConsole();
                     if (yourAnswer.equals(String.valueOf(index))) {
                         System.out.println("Chuc mung, ban da tra loi chinh xac.");
                     } else {
@@ -171,7 +173,7 @@ public class Main {
                         System.out.print(i + ". " + answerWrong + "\t");
                     }
                     System.out.print("\nDap an ban chon la: ");
-                    yourAnswer = scanner.next();
+                    yourAnswer = Util.readLineConsole();
                     if (yourAnswer.equals(String.valueOf(index))) {
                         System.out.println("Chuc mung, ban da tra loi chinh xac.");
                     } else {
