@@ -1,10 +1,6 @@
 package slangWord;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.*;
 
 public class Util {
@@ -74,7 +70,7 @@ public class Util {
     }
 
     public static String getKey(Collection<String> set, String keyword){
-        return set.stream().parallel().filter(m -> (m.toLowerCase()).equals(keyword.toLowerCase())).findFirst().get();
+        return set.stream().parallel().filter(m -> (m.toLowerCase()).equals(keyword.toLowerCase())).findFirst().orElse(null);
     }
 
     public static void writeMoreLineToFile(Map<String,String> map, String fileName){
