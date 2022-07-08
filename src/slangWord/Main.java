@@ -9,11 +9,19 @@ public class Main {
     public static Scanner scanner = new Scanner(System.in);
     public static List<String> history = new ArrayList<>();
 
-    public static void menu (HashMap<String, String> dictionary) throws IOException {
+    
 
-        int choose = 9;
+    public static void menu (HashMap<String, String> dictionary) throws IOException {
+        int choose = 7;
         Random generator = new Random();
         String keyword;
+        Object[] questions;
+        Object[] answers;
+        String question;
+        String answer;
+        String yourAnswer;
+        String answerWrong;
+        int index;
         switch (choose){
             case 1:
                 System.out.print("Nhap tu muon tim kiem: ");
@@ -96,11 +104,11 @@ public class Main {
                 System.out.println(String.format("Random slang word trong ngay hom nay %s : $s", randomKey, dictionary.get(randomKey)));
                 break;
             case 9:
-                Object[] questions = dictionary.keySet().toArray();
-                Object[] answers = dictionary.values().toArray();
-                String question = (String) questions[generator.nextInt(questions.length)];
-                String answer = dictionary.get(question);
-                int index = generator.nextInt(4);
+                questions = dictionary.keySet().toArray();
+                answers = dictionary.values().toArray();
+                question = (String) questions[generator.nextInt(questions.length)];
+                answer = dictionary.get(question);
+                index = generator.nextInt(4);
 
                 System.out.format("Chon denfinition cua slang word: %s.\n", question);
                 for (int i=0;i<4;i++){
@@ -108,17 +116,39 @@ public class Main {
                         System.out.print(index +". "+ answer +"\t");
                         continue;
                     }
-                    String answerWrong = (String) answers[generator.nextInt(answers.length)];
-                    if(answerWrong.equals(answer)){
+                    do{
                         answerWrong = (String) answers[generator.nextInt(answers.length)];
-                        i-=1;
-                        continue;
-                    }else{
+                    }while (answerWrong.equals(answer));
                         System.out.print(i +". "+ answerWrong +"\t");
-                    }
                 }
                 System.out.print("\nDap an ban chon la: ");
-                String yourAnswer = scanner.next();
+                yourAnswer = scanner.next();
+                if(yourAnswer.equals(String.valueOf(index))){
+                    System.out.println("Chuc mung, ban da tra loi chinh xac.");
+                }else{
+                    System.out.println("ban da tra loi sai, dap an la " + answer);
+                }
+                break;
+            case 10:
+                answers = dictionary.keySet().toArray();
+                questions = dictionary.values().toArray();
+                answer = (String) answers[generator.nextInt(answers.length)];
+                question = dictionary.get(answer);
+                index = generator.nextInt(4);
+
+                System.out.format("Chon slang word cua definition: %s.\n", question);
+                for (int i=0;i<4;i++){
+                    if(i == index) {
+                        System.out.print(index +". "+ answer +"\t");
+                        continue;
+                    }
+                    do{
+                        answerWrong = (String) questions[generator.nextInt(questions.length)];
+                    }while (answerWrong.equals(answer));
+                    System.out.print(i +". "+ answerWrong +"\t");
+                }
+                System.out.print("\nDap an ban chon la: ");
+                yourAnswer = scanner.next();
                 if(yourAnswer.equals(String.valueOf(index))){
                     System.out.println("Chuc mung, ban da tra loi chinh xac.");
                 }else{
